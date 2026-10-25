@@ -45,12 +45,12 @@ public class ServerboundChatPacketMixin {
      * @author Daxanius
      */
     @Inject(method = "signature", at = @At("HEAD"), cancellable = true)
-    private void signature(CallbackInfoReturnable<MessageSignature> info) {
+    private void signature(CallbackInfoReturnable<Optional<MessageSignature>> info) {
         NoPryingEyesCommon.logVerbose("Requested signature from message packet");
 
         if (NoPryingEyesConfig.getInstance().noSign()) {
             NoPryingEyesCommon.logVerbose("Stripping packet signature");
-            info.setReturnValue(null);
+            info.setReturnValue(Optional.empty());
         }
     }
 }
